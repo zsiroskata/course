@@ -25,12 +25,10 @@ Console.WriteLine($"Backend átlag:{avg}");
 
 //3. Melyik hallgató az osztályelső (akinek a legjobb az eredményeinek összege minden tantárgyból)?
 Console.WriteLine("\n3.feladat");
-var bs = courses
-    .OrderByDescending(x => x.Result.Sum())  
-    .Select(x => x.Name)  
-    .FirstOrDefault();  
+var bs = courses.OrderByDescending(x => x.Result.Sum())  
+    .Select(x => x.Name).FirstOrDefault();  
 
-Console.WriteLine("Az osztályelső: " + bs);
+Console.WriteLine($"osztályelső:\t {bs} ");
 
 //4. Mennyi a férfiak aránya a képzésen?
 Console.WriteLine("\n4.feladat");
@@ -42,8 +40,7 @@ Console.WriteLine($"fiúk aránya: {arany:F2}%");
 
 //5. Melyik női hallgató a legjobb webfejlesztésből? (a legmagasabb a frontend + backend muduljainak összpontszáma)
 Console.WriteLine("\n5.feladat");
-var f = courses.Where(x => !x.Gender)
-    .OrderByDescending(x => x.Frontend() + x.Backend())
+var f = courses.Where(x => !x.Gender).OrderByDescending(x => x.Frontend() + x.Backend())
     .Select(x => x.Name).FirstOrDefault();
 
 Console.WriteLine($"legjobb női webfejlesztő:\t{f}");
@@ -94,8 +91,6 @@ Console.WriteLine($"összesen  {perfect} db ember van, akinek 100% modul & nem b
 Console.WriteLine("\n9.feladat");
 Dictionary<string, int> failedModules = new Dictionary<string, int>();
 
-// Végigmegyünk a tantárgyakon
-
 for (int i = 0; i < Course.Subjects.Length; i++)
 {
     int failedCount = courses.Count(student => student.Result[i] < 51);
@@ -108,8 +103,6 @@ foreach (var item in failedModules)
     Console.WriteLine($"\t{item.Key}: \t{item.Value} hallgató");
 }
 
-
-
 //10. Rendezze a hallgatókat családnév szerint ABC sorrendbe, és írja ki egy fileba az átlageredményükkel együtt (feltételezheti, hogy minden hallgató neve 2 részből áll, szóköz szeparálja, és a második név a családnév)
 Console.WriteLine("\n10.feladat");
 
@@ -119,8 +112,8 @@ using (StreamWriter writer = new StreamWriter(@"..\..\..\src\atlag.txt"))
   
     foreach (var item in sortedStudents)
     {
-        double average = item.Result.Average();
-        writer.WriteLine($"{ item.Name}: {average:F2}%");
+        var avg1 = item.Result.Average();
+        writer.WriteLine($"{ item.Name}: {avg1:F2}%");
     }
 }
 
