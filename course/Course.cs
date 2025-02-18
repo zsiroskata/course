@@ -12,6 +12,8 @@ namespace course
         public bool Gender { get; set; }
         public int Payment { get; set; }
         public int[] Result { get; set; }
+
+        public static string[] Subjects = { "Hálózat", "Mobil", "Frontend", "Backend" };
         public Course(string data) 
         {
             var s = data.Split(';');
@@ -25,5 +27,22 @@ namespace course
         {
             return Result[3];
         }
+        public double Frontend()
+        {
+            return Result[2];
+        }
+        public List<string> GetFailedSubjects()
+        {
+            List<string> failedSubjects = new List<string>();
+            for (int i = 0; i < Result.Length; i++)
+            {
+                if (Result[i] < 51)
+                {
+                    failedSubjects.Add(Subjects[i]);
+                }
+            }
+            return failedSubjects;
+        }
+
     }
 }
